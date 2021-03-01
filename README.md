@@ -1,5 +1,17 @@
 # Proyecto API Yii2
 
+#### Conectar a la base de datos
+- Ir al archivo `proyecto-API-yii/API/common/config/main-local.php`
+- Sustituir los datos para conectar a la BD
+    ```php
+    'db' => [
+      'class' => 'yii\db\Connection',
+      'dsn' => 'mysql:host=ip del server;dbname=Nombre de la Base de Datos',
+      'username' => 'usuario de la base de datos',
+      'password' => 'clave de la base de datos',
+      'charset' => 'utf8',
+    ],
+    ```
 #### Ruta de acceso al CRUD y Api de cada tabla
 
 |Nombre de la Tabla |Ruta|
