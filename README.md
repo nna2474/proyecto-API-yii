@@ -1,74 +1,233 @@
-# Proyecto API Yii2
+<p align="center">
+    <a href="https://github.com/yiisoft" target="_blank">
+        <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">
+    </a>
+    <h1 align="center">Yii 2 Basic Project Template</h1>
+    <br>
+</p>
 
-#### Conectar a la base de datos
-- Ir al archivo `proyecto-API-yii/API/common/config/main-local.php`
-- Sustituir los datos para conectar a la BD
-    ```php
-    'db' => [
-      'class' => 'yii\db\Connection',
-      'dsn' => 'mysql:host=ip del server;dbname=Nombre de la Base de Datos',
-      'username' => 'usuario de la base de datos',
-      'password' => 'clave de la base de datos',
-      'charset' => 'utf8',
-    ],
+Yii 2 Basic Project Template is a skeleton [Yii 2](http://www.yiiframework.com/) application best for
+rapidly creating small projects.
+
+The template contains the basic features including user login/logout and a contact page.
+It includes all commonly used configurations that would allow you to focus on adding new
+features to your application.
+
+[![Latest Stable Version](https://img.shields.io/packagist/v/yiisoft/yii2-app-basic.svg)](https://packagist.org/packages/yiisoft/yii2-app-basic)
+[![Total Downloads](https://img.shields.io/packagist/dt/yiisoft/yii2-app-basic.svg)](https://packagist.org/packages/yiisoft/yii2-app-basic)
+[![build](https://github.com/yiisoft/yii2-app-basic/workflows/build/badge.svg)](https://github.com/yiisoft/yii2-app-basic/actions?query=workflow%3Abuild)
+
+DIRECTORY STRUCTURE
+-------------------
+
+      assets/             contains assets definition
+      commands/           contains console commands (controllers)
+      config/             contains application configurations
+      controllers/        contains Web controller classes
+      mail/               contains view files for e-mails
+      models/             contains model classes
+      runtime/            contains files generated during runtime
+      tests/              contains various tests for the basic application
+      vendor/             contains dependent 3rd-party packages
+      views/              contains view files for the Web application
+      web/                contains the entry script and Web resources
+
+
+
+REQUIREMENTS
+------------
+
+The minimum requirement by this project template that your Web server supports PHP 5.6.0.
+
+
+INSTALLATION
+------------
+
+### Install via Composer
+
+If you do not have [Composer](http://getcomposer.org/), you may install it by following the instructions
+at [getcomposer.org](http://getcomposer.org/doc/00-intro.md#installation-nix).
+
+You can then install this project template using the following command:
+
+~~~
+composer create-project --prefer-dist yiisoft/yii2-app-basic basic
+~~~
+
+Now you should be able to access the application through the following URL, assuming `basic` is the directory
+directly under the Web root.
+
+~~~
+http://localhost/basic/web/
+~~~
+
+### Install from an Archive File
+
+Extract the archive file downloaded from [yiiframework.com](http://www.yiiframework.com/download/) to
+a directory named `basic` that is directly under the Web root.
+
+Set cookie validation key in `config/web.php` file to some random secret string:
+
+```php
+'request' => [
+    // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
+    'cookieValidationKey' => '<secret random string goes here>',
+],
+```
+
+You can then access the application through the following URL:
+
+~~~
+http://localhost/basic/web/
+~~~
+
+
+### Install with Docker
+
+Update your vendor packages
+
+    docker-compose run --rm php composer update --prefer-dist
+    
+Run the installation triggers (creating cookie validation code)
+
+    docker-compose run --rm php composer install    
+    
+Start the container
+
+    docker-compose up -d
+    
+You can then access the application through the following URL:
+
+    http://127.0.0.1:8000
+
+**NOTES:** 
+- Minimum required Docker engine version `17.04` for development (see [Performance tuning for volume mounts](https://docs.docker.com/docker-for-mac/osxfs-caching/))
+- The default configuration uses a host-volume in your home directory `.docker-composer` for composer caches
+
+
+CONFIGURATION
+-------------
+
+### Database
+
+Edit the file `config/db.php` with real data, for example:
+
+```php
+return [
+    'class' => 'yii\db\Connection',
+    'dsn' => 'mysql:host=localhost;dbname=yii2basic',
+    'username' => 'root',
+    'password' => '1234',
+    'charset' => 'utf8',
+];
+```
+
+**NOTES:**
+- Yii won't create the database for you, this has to be done manually before you can access it.
+- Check and edit the other files in the `config/` directory to customize your application as required.
+- Refer to the README in the `tests` directory for information specific to basic application tests.
+
+
+TESTING
+-------
+
+Tests are located in `tests` directory. They are developed with [Codeception PHP Testing Framework](http://codeception.com/).
+By default there are 3 test suites:
+
+- `unit`
+- `functional`
+- `acceptance`
+
+Tests can be executed by running
+
+```
+vendor/bin/codecept run
+```
+
+The command above will execute unit and functional tests. Unit tests are testing the system components, while functional
+tests are for testing user interaction. Acceptance tests are disabled by default as they require additional setup since
+they perform testing in real browser. 
+
+
+### Running  acceptance tests
+
+To execute acceptance tests do the following:  
+
+1. Rename `tests/acceptance.suite.yml.example` to `tests/acceptance.suite.yml` to enable suite configuration
+
+2. Replace `codeception/base` package in `composer.json` with `codeception/codeception` to install full featured
+   version of Codeception
+
+3. Update dependencies with Composer 
+
     ```
-#### Ruta de acceso al CRUD y Api de cada tabla
+    composer update  
+    ```
 
-|Nombre de la Tabla |Ruta|
-|---|---|
-|t00040_servicio|index.php?r=t00040-servicio|
-|t00060_funcion|index.php?r=t00060-funcion|
-|t00070_funcion_servicio|index.php?r=t00070-funcion-servicio|
-|t00100_usuario|index.php?r=t00100-usuario|
-|t99999_auditoria|index.php?r=t99999-auditoria|
-|t99999_bitacora|index.php?r=t99999-bitacora|
+4. Download [Selenium Server](http://www.seleniumhq.org/download/) and launch it:
 
-## Acceso a la interfaz gráfica del CRUD
+    ```
+    java -jar ~/selenium-server-standalone-x.xx.x.jar
+    ```
+
+    In case of using Selenium Server 3.0 with Firefox browser since v48 or Google Chrome since v53 you must download [GeckoDriver](https://github.com/mozilla/geckodriver/releases) or [ChromeDriver](https://sites.google.com/a/chromium.org/chromedriver/downloads) and launch Selenium with it:
+
+    ```
+    # for Firefox
+    java -jar -Dwebdriver.gecko.driver=~/geckodriver ~/selenium-server-standalone-3.xx.x.jar
+    
+    # for Google Chrome
+    java -jar -Dwebdriver.chrome.driver=~/chromedriver ~/selenium-server-standalone-3.xx.x.jar
+    ``` 
+    
+    As an alternative way you can use already configured Docker container with older versions of Selenium and Firefox:
+    
+    ```
+    docker run --net=host selenium/standalone-firefox:2.53.0
+    ```
+
+5. (Optional) Create `yii2basic_test` database and update it by applying migrations if you have them.
+
+   ```
+   tests/bin/yii migrate
+   ```
+
+   The database configuration can be found at `config/test_db.php`.
+
+
+6. Start web server:
+
+    ```
+    tests/bin/yii serve
+    ```
+
+7. Now you can run all available tests
+
+   ```
+   # run all available tests
+   vendor/bin/codecept run
+
+   # run acceptance tests
+   vendor/bin/codecept run acceptance
+
+   # run only unit and functional tests
+   vendor/bin/codecept run unit,functional
+   ```
+
+### Code coverage support
+
+By default, code coverage is disabled in `codeception.yml` configuration file, you should uncomment needed rows to be able
+to collect code coverage. You can run your tests and collect coverage with the following command:
 
 ```
-http://localhost/proyecto-API-yii/api/frontend/web/index.php?r=<nombre de la tabla>
-```
-Ejemplo con la tabla `t00100-usuario`:
+#collect coverage for all tests
+vendor/bin/codecept run --coverage --coverage-html --coverage-xml
 
-```
-http://localhost/proyecto-API-yii/api/frontend/web/index.php?r=t00100-usuario
-```    
+#collect coverage only for unit tests
+vendor/bin/codecept run unit --coverage --coverage-html --coverage-xml
 
-
-## Acceso a la API
-
-```
-http://localhost/proyecto-API-yii/api/backend/web/index.php?r=<nombre de la tabla>
+#collect coverage for unit and functional tests
+vendor/bin/codecept run functional,unit --coverage --coverage-html --coverage-xml
 ```
 
-Ejemplo con la tabla `t00100-usuario`: 
-
-```
-http://localhost/proyecto-API-yii/api/backend/web/index.php?r=t00100-usuario
-```    
-### Métodos y funciones:
-
-- `'PUT,PATCH t00100-usuario/<id>' => 't00100-usuario/update'`: 
-    - actualiza un usuario. Ejemplo: `index.php?r=t00100-usuario/update&id=1`
-
-- `'DELETE t00100-usuario/<id>' => 't00100-usuario/delete'`: 
-    - eliminar un usuario. Ejemplo: `index.php?r=t00100-usuario/delete&id=1`
-
-- `'GET,HEAD t00100-usuario/<id>' => 't00100-usuario/view'`: 
-    - devuelve los detalles / descripción general / opciones de un usuario. Ejemplo: `index.php?r=t00100-usuario/view&id=1`
-
-- `'POST t00100-usuario' => 't00100-usuario/create'`:
-    - crea un nuevo usuario. Ejemplo: `index.php?r=t00100-usuario/create`
-
-- `'GET,HEAD t00100-usuario' => 't00100-usuario/index'`:
-    - devuelve una lista / descripción general / opciones de usuarios. Ejemplo: `index.php?r=t00100-usuario/index`
-
-- `'t00100-usuario/<id>' => 't00100-usuario/options'`:
-    - procesa todos los verbos no manejados de un usuario
-
-- `'t00100-usuario' => 't00100-usuario/options'`:
-    - procesa todos los verbos no manejados de la colección de usuarios 
- 
- Para más información: [Class yii\rest\UrlRule](https://www.yiiframework.com/doc/api/2.0/yii-rest-urlrule)
-
- 
+You can see code coverage output under the `tests/_output` directory.
