@@ -1,4 +1,5 @@
 <?php
+
 namespace backend\controllers;
 
 use Yii;
@@ -46,6 +47,7 @@ class SiteController extends Controller
      */
     public function actions()
     {
+        //test
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
