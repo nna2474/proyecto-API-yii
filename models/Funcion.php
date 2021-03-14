@@ -37,7 +37,7 @@ class Funcion extends \yii\db\ActiveRecord
             [['Fe_Inicio', 'Fe_Fin'], 'safe'],
             [['St_Activo', 'Co_Auditoria'], 'integer'],
             [['Nb_Funcion'], 'string', 'max' => 1500],
-            [['Co_Auditoria'], 'exist', 'skipOnError' => true, 'targetClass' => T99999Auditoria::className(), 'targetAttribute' => ['Co_Auditoria' => 'Co_Auditoria']],
+            [['Co_Auditoria'], 'exist', 'skipOnError' => true, 'targetClass' => Auditoria::className(), 'targetAttribute' => ['Co_Auditoria' => 'Co_Auditoria']],
         ];
     }
 

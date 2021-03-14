@@ -46,7 +46,7 @@ class Usuario extends \yii\db\ActiveRecord
             [['Nu_Movil', 'Tx_Patron'], 'string', 'max' => 20],
             [['Tx_Email'], 'unique'],
             [['Nb_Usuario'], 'unique'],
-            [['Co_Auditoria'], 'exist', 'skipOnError' => true, 'targetClass' => T99999Auditoria::className(), 'targetAttribute' => ['Co_Auditoria' => 'Co_Auditoria']],
+            [['Co_Auditoria'], 'exist', 'skipOnError' => true, 'targetClass' => Auditoria::className(), 'targetAttribute' => ['Co_Auditoria' => 'Co_Auditoria']],
         ];
     }
 

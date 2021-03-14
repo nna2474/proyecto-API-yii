@@ -54,6 +54,13 @@ $config = [
             'enableStrictParsing' => true,
             'showScriptName' => false,
             'rules' => [
+
+                'GET <controller>' => '<controller>',
+                'POST <controller:[\w-]+>' => '<controller>/create',
+                '<controller:[\w-]+>s' => '<controller>/index',
+                'PUT <controller:[\w-]+>/<id:\d+>'    => '<controller>/update',
+                'DELETE <controller:[\w-]+>/<id:\d+>' => '<controller>/delete',
+                '<controller:[\w-]+>/<id:\d+>'        => '<controller>/view',
                 [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'test',

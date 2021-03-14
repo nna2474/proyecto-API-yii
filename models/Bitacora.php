@@ -36,7 +36,7 @@ class Bitacora extends \yii\db\ActiveRecord
             [['Co_Bitacora_Previo', 'Co_Usuario'], 'integer'],
             [['Fe_Ins'], 'safe'],
             [['Co_Bitacora_Previo'], 'exist', 'skipOnError' => true, 'targetClass' => Bitacora::className(), 'targetAttribute' => ['Co_Bitacora_Previo' => 'Co_Bitacora']],
-            [['Co_Usuario'], 'exist', 'skipOnError' => true, 'targetClass' => T00100Usuario::className(), 'targetAttribute' => ['Co_Usuario' => 'Co_Usuario']],
+            [['Co_Usuario'], 'exist', 'skipOnError' => true, 'targetClass' => Usuario::className(), 'targetAttribute' => ['Co_Usuario' => 'Co_Usuario']],
         ];
     }
 

@@ -41,10 +41,10 @@ class FuncionServicio extends \yii\db\ActiveRecord
         return [
             [['Co_Funcion', 'Co_Servicio_Inicio', 'Co_Servicio_Fin'], 'required'],
             [['Co_Funcion', 'Co_Servicio_Inicio', 'Co_Servicio_Fin', 'St_Opcional', 'Nu_Orden', 'Ti_Minimo', 'Ti_Maximo', 'St_Activo', 'Co_Auditoria'], 'integer'],
-            [['Co_Auditoria'], 'exist', 'skipOnError' => true, 'targetClass' => T99999Auditoria::className(), 'targetAttribute' => ['Co_Auditoria' => 'Co_Auditoria']],
-            [['Co_Funcion'], 'exist', 'skipOnError' => true, 'targetClass' => T00060Funcion::className(), 'targetAttribute' => ['Co_Funcion' => 'Co_Funcion']],
-            [['Co_Servicio_Fin'], 'exist', 'skipOnError' => true, 'targetClass' => T00040Servicio::className(), 'targetAttribute' => ['Co_Servicio_Fin' => 'Co_Servicio']],
-            [['Co_Servicio_Inicio'], 'exist', 'skipOnError' => true, 'targetClass' => T00040Servicio::className(), 'targetAttribute' => ['Co_Servicio_Inicio' => 'Co_Servicio']],
+            [['Co_Auditoria'], 'exist', 'skipOnError' => true, 'targetClass' => Auditoria::className(), 'targetAttribute' => ['Co_Auditoria' => 'Co_Auditoria']],
+            [['Co_Funcion'], 'exist', 'skipOnError' => true, 'targetClass' => Funcion::className(), 'targetAttribute' => ['Co_Funcion' => 'Co_Funcion']],
+            [['Co_Servicio_Fin'], 'exist', 'skipOnError' => true, 'targetClass' => Servicio::className(), 'targetAttribute' => ['Co_Servicio_Fin' => 'Co_Servicio']],
+            [['Co_Servicio_Inicio'], 'exist', 'skipOnError' => true, 'targetClass' => Servicio::className(), 'targetAttribute' => ['Co_Servicio_Inicio' => 'Co_Servicio']],
         ];
     }
 

@@ -43,7 +43,7 @@ class Servicio extends \yii\db\ActiveRecord
             [['Co_URL', 'Co_Inquilino'], 'string', 'max' => 2500],
             [['Co_Password'], 'string', 'max' => 500],
             [['Co_IP'], 'string', 'max' => 40],
-            [['Co_Auditoria'], 'exist', 'skipOnError' => true, 'targetClass' => T99999Auditoria::className(), 'targetAttribute' => ['Co_Auditoria' => 'Co_Auditoria']],
+            [['Co_Auditoria'], 'exist', 'skipOnError' => true, 'targetClass' => Auditoria::className(), 'targetAttribute' => ['Co_Auditoria' => 'Co_Auditoria']],
         ];
     }
 
