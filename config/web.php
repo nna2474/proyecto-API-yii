@@ -69,6 +69,14 @@ $config = [
                         'GET test-function' => 'test-function'
                     ]
                 ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'usuario',
+                    'pluralize' => false,
+                    'extraPatterns' => [
+                        'GET login' => 'login'
+                    ]
+                ],
             ],
         ],
         /*'urlManager' => [
