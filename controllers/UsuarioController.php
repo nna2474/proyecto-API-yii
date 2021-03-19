@@ -47,10 +47,10 @@ class UsuarioController extends ActiveController
             ->one();
 
         if (empty($user))
-            return ['message' => 'El usuario no se encuentra registrado'];
+            return ['error' => 'El usuario no se encuentra registrado'];
 
         if (!Yii::$app->security->validatePassword($pwd, $user['Tx_Clave']))
-            return ['message' => 'Los datos del usuario son incorrectos'];
+            return ['error' => 'Los datos del usuario son incorrectos'];
 
         return $user;
         /*$sql = 'SELECT * FROM t00100_usuario WHERE Nb_Usuario = "'.$user.'" and Tx_Clave = "'. $pwd .'"';

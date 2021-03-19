@@ -47,7 +47,7 @@ class Usuario extends \yii\db\ActiveRecord
         }
 
         if (!$tem->validate())
-            return ['message' => $tem->getErrors()];
+            return ['error' => $tem->getErrors()];
 
         $tem->save();
         return $tem->toArray();
