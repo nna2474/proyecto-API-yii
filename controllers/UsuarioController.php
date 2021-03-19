@@ -41,16 +41,18 @@ class UsuarioController extends ActiveController
         $pwd = Yii::$app->request->post('pwd');
 
         $user = Usuario::find()
-            ->where(['Nb_Usuario' => $user, 'Tx_Clave' => $pwd])
-            ->orWhere(['Tx_Email' => $user, 'Tx_Clave' => $pwd])
+            ->where(['Nb_Usuario' => $user])
+            ->orWhere(['Tx_Email' => $user])
             ->asArray()
             ->one();
 
         if (empty($user))
-            return ['message' => 'Los datos ingresados son incorrectos'];
+            return ['message' => 'El usuario no se encuentra registrado'];
 
-        return $user->toArray();
+        if (!Yii::$app->security->validatePassword($pwd, $user['Tx_Clave']))
+            return ['message' => 'Los datos del usuario son incorrectos'];
 
+        return $user;
         /*$sql = 'SELECT * FROM t00100_usuario WHERE Nb_Usuario = "'.$user.'" and Tx_Clave = "'. $pwd .'"';
         $usuario = Usuario::findBySql($sql)->one();
         return $usuario;*/
