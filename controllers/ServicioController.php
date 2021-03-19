@@ -18,7 +18,7 @@ class ServicioController extends ActiveController
                     // restrict access to
                     'Origin' => ['*', 'https://3.15.32.162:3000'],
                     // Allow only POST and PUT methods
-                    'Access-Control-Request-Method' => ['POST', 'GET'],
+                    'Access-Control-Request-Method' => ['DELETE', 'PUT'],
                     // Allow only headers 'X-Wsse'
                     'Access-Control-Request-Headers' => ['*'],
                     // Allow credentials (cookies, authorization headers, etc.) to be exposed to the browser

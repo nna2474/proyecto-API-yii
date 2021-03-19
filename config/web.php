@@ -86,6 +86,30 @@ $config = [
                         'GET test' => 'test'
                     ]
                 ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'funcion',
+                    'pluralize' => false,
+
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'funcion-servicio',
+                    'pluralize' => false,
+
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'auditoria',
+                    'pluralize' => false,
+
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'bitacora',
+                    'pluralize' => false,
+
+                ]
             ],
         ],
         /*'urlManager' => [
