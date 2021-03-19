@@ -40,7 +40,12 @@ class UsuarioController extends ActiveController
         $user = Yii::$app->request->post('user');
         $pwd = Yii::$app->request->post('pwd');
 
-        $user = Usuario::findOne(['Nb_Usuario' => $user, 'Tx_Clave' => $pwd]);
+        $user = Usuario::find()
+            ->where(['Nb_Usuario' => $user, 'Tx_Clave' => $pwd])
+            ->orWhere(['Tx_Email' => $user, 'Tx_Clave' => $pwd])
+            ->asArray()
+            ->one();
+
         if (empty($user))
             return ['message' => 'Los datos ingresados son incorrectos'];
 
@@ -49,5 +54,16 @@ class UsuarioController extends ActiveController
         /*$sql = 'SELECT * FROM t00100_usuario WHERE Nb_Usuario = "'.$user.'" and Tx_Clave = "'. $pwd .'"';
         $usuario = Usuario::findBySql($sql)->one();
         return $usuario;*/
+    }
+
+    public function actionRegister()
+    {
+        $user = Yii::$app->request->post('user');
+        $email = Yii::$app->request->post('email');
+        $mobile = Yii::$app->request->post('mobile');
+        $password = Yii::$app->request->post('password');
+        $patron = Yii::$app->request->post('patron');
+
+        return Usuario::newUser($user, $email, $mobile, $password, $patron);
     }
 }

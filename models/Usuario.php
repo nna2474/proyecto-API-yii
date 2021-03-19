@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\base\Exception;
 
 /**
  * This is the model class for table "t00100_usuario".
@@ -30,6 +31,26 @@ class Usuario extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 't00100_usuario';
+    }
+
+    public static function newUser($user, $email, $mobile, $password, $patron)
+    {
+        $tem = new self();
+        $tem->Nb_Usuario = $user;
+        $tem->Tx_Email = $email;
+        $tem->Nu_Movil = $mobile;
+        $tem->Tx_Patron = $patron;
+        try {
+            $tem->Tx_Clave = Yii::$app->security->generatePasswordHash($password);
+        } catch (Exception $e) {
+            $tem->Tx_Clave = $password;
+        }
+
+        if (!$tem->validate())
+            return ['message' => $tem->getErrors()];
+
+        $tem->save();
+        return $tem->toArray();
     }
 
     /**
