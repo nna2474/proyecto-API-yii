@@ -58,9 +58,9 @@ $config = [
                 'GET <controller>' => '<controller>',
                 'POST <controller:[\w-]+>' => '<controller>/create',
                 '<controller:[\w-]+>s' => '<controller>/index',
-                'PUT <controller:[\w-]+>/<id:\d+>'    => '<controller>/update',
+                'PUT <controller:[\w-]+>/<id:\d+>' => '<controller>/update',
                 'DELETE <controller:[\w-]+>/<id:\d+>' => '<controller>/delete',
-                '<controller:[\w-]+>/<id:\d+>'        => '<controller>/view',
+                '<controller:[\w-]+>/<id:\d+>' => '<controller>/view',
                 [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'test',
@@ -75,6 +75,14 @@ $config = [
                     'pluralize' => false,
                     'extraPatterns' => [
                         'GET login' => 'login'
+                    ]
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'servicio',
+                    'pluralize' => false,
+                    'extraPatterns' => [
+                        'GET test' => 'test'
                     ]
                 ],
             ],
