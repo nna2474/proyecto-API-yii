@@ -20,7 +20,7 @@ class UsuarioController extends ActiveController
                     // restrict access to
                     'Origin' => ['*', 'https://3.15.32.162:3000'],
                     // Allow only POST and PUT methods
-                    'Access-Control-Request-Method' => ['DELETE', 'PUT', 'POST', 'GET'],
+                    'Access-Control-Request-Method' => ['DELETE', 'PUT'],
                     // Allow only headers 'X-Wsse'
                     'Access-Control-Request-Headers' => ['*'],
                     // Allow credentials (cookies, authorization headers, etc.) to be exposed to the browser
@@ -37,8 +37,8 @@ class UsuarioController extends ActiveController
 
     public function actionLogin()
     {
-        $user = Yii::$app->request->post('user');
-        $pwd = Yii::$app->request->post('pwd');
+        $user = Yii::$app->request->get('user');
+        $pwd = Yii::$app->request->get('password');
 
         $user = Usuario::find()
             ->where(['Nb_Usuario' => $user])
@@ -49,7 +49,7 @@ class UsuarioController extends ActiveController
         if (empty($user))
             return ['error' => 'El usuario no se encuentra registrado'];
 
-        if (!Yii::$app->security->validatePassword($pwd, $user['Tx_Clave']))
+        if ($pwd !== $user['Tx_Clave'])
             return ['error' => 'Los datos del usuario son incorrectos'];
 
         return $user;

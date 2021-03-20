@@ -74,7 +74,7 @@ $config = [
                     'controller' => 'usuario',
                     'pluralize' => false,
                     'extraPatterns' => [
-                        'POST login' => 'login',
+                        'GET login' => 'login',
                         'POST register' => 'register',
                     ]
                 ],
