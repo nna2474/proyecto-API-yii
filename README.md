@@ -1,3 +1,88 @@
+# Proyecto API Yii2
+
+#### Conectar a la base de datos
+- Ir al archivo `proyecto-API-yii/web/`
+- Sustituir los datos para conectar a la BD
+    ```php
+    'db' => [
+      'class' => 'yii\db\Connection',
+      'dsn' => 'mysql:host=ip del server;dbname=Nombre de la Base de Datos',
+      'username' => 'usuario de la base de datos',
+      'password' => 'clave de la base de datos',
+      'charset' => 'utf8',
+    ],
+    ```
+#### Formatos de petición y respuesta, ambos casos maneja los datos en formato JSON.
+```php
+'request' => [
+	'parsers' => [
+        	'application/json' => 'yii\web\JsonParser',
+        ],
+ ],
+'response' => [
+        'format' => yii\web\Response::FORMAT_JSON,
+],
+```
+#### Ruta de acceso al CRUD y Api de cada tabla
+
+|Nombre de la Tabla |Ruta|
+|---|---|
+|t00040_servicio|/servicio|
+|t00060_funcion|/funcion|
+|t00070_funcion_servicio|/funcion-servicio|
+|t00100_usuario|/usuario|
+|t99999_auditoria|/auditoria|
+|t99999_bitacora|/bitacora|
+
+## Acceso a la API
+
+```
+http://localhost/proyecto-API-yii/web/<Ruta>
+```
+
+Ejemplo con la tabla `t00100-usuario`: 
+
+```
+http://localhost/proyecto-API-yii/web/usuario
+```    
+### Métodos y funciones:
+
+- `'PUT usuario/<id>' => 'usuario/update'`: 
+    - actualiza un usuario. Ejemplo: `usuario/1` enviar datos en formato json
+
+- `'DELETE usuario/<id>' => 'usuario/delete'`: 
+    - eliminar un usuario. Ejemplo: `usuario/1`
+
+- `'GET usuario/<id>' => 'usuario/view'`: 
+    - devuelve los detalles / descripción general / opciones de un usuario. Ejemplo: `usuario/1`
+
+- `'POST usuario' => 'usuario/create'`:
+    - crea un nuevo usuario. Ejemplo: `usuario` enviar datos en formato json
+
+- `'POST usuario/login' => 'usuario/login'`:
+    - recibe un usuario y una contraseña para verificar el inicio de sesión y confirmar las credenciales.
+    - datos recibidos por POST, ejemplo:
+    - {'user'=>'victor', 'pwd'='123456'}
+    - {'user'=>'victor@yopmail.com', 'pwd'='123456'}
+
+- `'POST usuario/register' => 'usuario/register'`:
+    - recibe y procesa los datos mínimos necesarios para register un usuario en el sistema.
+    - datos de entrada:
+    - * user
+    - * email
+    - * mobile (opcional)
+    - * password
+    - * patron (opcional)
+ 
+ Para más información: [Class yii\rest\UrlRule](https://www.yiiframework.com/doc/api/2.0/yii-rest-urlrule)
+
+ 
+
+
+-------------------
+-------------------
+-------------------
+
 <p align="center">
     <a href="https://github.com/yiisoft" target="_blank">
         <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">
