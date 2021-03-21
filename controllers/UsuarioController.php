@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Bitacora;
 use app\models\Usuario;
 use Yii;
 use yii\filters\Cors;
@@ -20,7 +21,7 @@ class UsuarioController extends ActiveController
                     // restrict access to
                     'Origin' => ['*', 'https://3.15.32.162:3000'],
                     // Allow only POST and PUT methods
-                    'Access-Control-Request-Method' => ['DELETE', 'PUT', 'POST', 'GET'],
+                    'Access-Control-Request-Method' => ['DELETE', 'PUT'],
                     // Allow only headers 'X-Wsse'
                     'Access-Control-Request-Headers' => ['*'],
                     // Allow credentials (cookies, authorization headers, etc.) to be exposed to the browser
@@ -37,8 +38,8 @@ class UsuarioController extends ActiveController
 
     public function actionLogin()
     {
-        $user = Yii::$app->request->post('user');
-        $pwd = Yii::$app->request->post('pwd');
+        $user = Yii::$app->request->get('user');
+        $pwd = Yii::$app->request->get('password');
 
         $user = Usuario::find()
             ->where(['Nb_Usuario' => $user])
@@ -49,8 +50,20 @@ class UsuarioController extends ActiveController
         if (empty($user))
             return ['error' => 'El usuario no se encuentra registrado'];
 
-        if (!Yii::$app->security->validatePassword($pwd, $user['Tx_Clave']))
+        if ($pwd !== $user['Tx_Clave'])
             return ['error' => 'Los datos del usuario son incorrectos'];
+
+        $bitacora = Bitacora::find()
+            ->where(['Co_Usuario' => $user['Co_Usuario']])
+            ->orderBy(["Co_Bitacora"=> SORT_DESC])
+            ->asArray()
+            ->one();
+
+        //echo $bitacora ? "ok" : "null";
+
+        $cB = $bitacora ? $bitacora['Co_Bitacora'] : '';
+
+        Bitacora::newBitacora($bitacora['Co_Bitacora'],$user['Co_Usuario']);
 
         return $user;
         /*$sql = 'SELECT * FROM t00100_usuario WHERE Nb_Usuario = "'.$user.'" and Tx_Clave = "'. $pwd .'"';

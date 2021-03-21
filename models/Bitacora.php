@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\base\Exception;
 
 /**
  * This is the model class for table "t99999_bitacora".
@@ -32,7 +33,7 @@ class Bitacora extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Co_Bitacora_Previo', 'Co_Usuario'], 'required'],
+            [['Co_Usuario'], 'required'],
             [['Co_Bitacora_Previo', 'Co_Usuario'], 'integer'],
             [['Fe_Ins'], 'safe'],
             [['Co_Bitacora_Previo'], 'exist', 'skipOnError' => true, 'targetClass' => Bitacora::className(), 'targetAttribute' => ['Co_Bitacora_Previo' => 'Co_Bitacora']],
@@ -81,5 +82,15 @@ class Bitacora extends \yii\db\ActiveRecord
     public function getCoUsuario()
     {
         return $this->hasOne(T00100Usuario::className(), ['Co_Usuario' => 'Co_Usuario']);
+    }
+
+    public static function newBitacora($bitacoraP, $user)
+    {
+        $tem = new self();
+        $tem->Co_Bitacora_Previo = $bitacoraP;
+        $tem->Co_Usuario = $user;
+
+        $tem->save();
+        return $tem->toArray();
     }
 }
