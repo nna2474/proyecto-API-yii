@@ -76,6 +76,7 @@ $config = [
                     'extraPatterns' => [
                         'POST login' => 'login',
                         'POST register' => 'register',
+                        'POST set-user-status' => 'set-user-status',
                     ]
                 ],
                 [

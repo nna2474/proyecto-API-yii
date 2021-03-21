@@ -68,4 +68,26 @@ class UsuarioController extends ActiveController
 
         return Usuario::newUser($user, $email, $mobile, $password, $patron);
     }
+
+    public function actionSetUserStatus()
+    {
+        $username = Yii::$app->request->post('username');
+        $status = Yii::$app->request->post('status');
+
+        $user = Usuario::find()
+            ->where(['Nb_Usuario' => $username])
+            ->asArray()
+            ->one();
+
+        if (empty($user))
+            return ['error' => 'El usuario no se encuentra registrado'];
+
+        Usuario::updateAll(['St_Activo' => !empty($status) ? 1 : 0], ['Co_Usuario' => $user['Co_Usuario']]);
+
+        return [
+            'user' => $user['Nb_Usuario'],
+            'status' => !empty($status) ? 1 : 0,
+            'message' => 'Status actualizado'
+        ];
+    }
 }
