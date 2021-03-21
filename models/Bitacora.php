@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
 use Yii;
 use yii\base\Exception;
 
@@ -25,6 +26,15 @@ class Bitacora extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 't99999_bitacora';
+    }
+
+    public function behaviors()
+    {
+        return [
+            'auditEntryBehaviors' => [
+                'class' => AuditEntryBehaviors::class
+            ],
+        ];
     }
 
     /**

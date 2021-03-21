@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
 use Yii;
 use yii\base\Exception;
 
@@ -33,6 +34,15 @@ class Usuario extends \yii\db\ActiveRecord
         return 't00100_usuario';
     }
 
+    public function behaviors()
+    {
+        return [
+            'auditEntryBehaviors' => [
+                'class' => AuditEntryBehaviors::class
+            ],
+        ];
+    }
+
     public static function newUser($user, $email, $mobile, $password, $patron)
     {
         $tem = new self();
@@ -43,7 +53,7 @@ class Usuario extends \yii\db\ActiveRecord
         try {
             $tem->Tx_Clave = Yii::$app->security->generatePasswordHash($password);
         } catch (Exception $e) {
-            $tem->Tx_Clave = $password;
+            return ['error' => $tem->getErrors()];
         }
 
         if (!$tem->validate())
@@ -98,16 +108,16 @@ class Usuario extends \yii\db\ActiveRecord
      */
     public function getCoAuditoria()
     {
-        return $this->hasOne(T99999Auditoria::className(), ['Co_Auditoria' => 'Co_Auditoria']);
+        return $this->hasOne(Auditoria::className(), ['Co_Auditoria' => 'Co_Auditoria']);
     }
 
     /**
-     * Gets query for [[T99999Bitacoras]].
+     * Gets query for [[Bitacoras]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getT99999Bitacoras()
+    public function getBitacoras()
     {
-        return $this->hasMany(T99999Bitacora::className(), ['Co_Usuario' => 'Co_Usuario']);
+        return $this->hasMany(Bitacora::className(), ['Co_Usuario' => 'Co_Usuario']);
     }
 }

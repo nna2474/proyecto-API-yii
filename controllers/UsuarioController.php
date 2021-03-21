@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Bitacora;
 use app\models\Usuario;
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
 use Yii;
 use yii\filters\Cors;
 use yii\rest\ActiveController;
@@ -31,7 +32,6 @@ class UsuarioController extends ActiveController
                     // Allow the X-Pagination-Current-Page header to be exposed to the browser.
                     'Access-Control-Expose-Headers' => ['X-Pagination-Current-Page'],
                 ],
-
             ],
         ];
     }
@@ -50,7 +50,7 @@ class UsuarioController extends ActiveController
         if (empty($user))
             return ['error' => 'El usuario no se encuentra registrado'];
 
-        if ($pwd !== $user['Tx_Clave'])
+        if (!Yii::$app->security->validatePassword($pwd, $user['Tx_Clave']))
             return ['error' => 'Los datos del usuario son incorrectos'];
 
         $bitacora = Bitacora::find()

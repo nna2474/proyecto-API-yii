@@ -48,6 +48,9 @@ $config = [
                 ],
             ],
         ],
+        'auditlog' => [
+            'class' => 'ruturajmaniyar\mod\audit\AuditEntryModule'
+        ],
         'db' => $db,
         'urlManager' => [
             'enablePrettyUrl' => true,
